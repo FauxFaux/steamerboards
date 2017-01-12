@@ -87,7 +87,7 @@ def main(input_file):
         print('{}-{} ({}):'.format(first.world, first.level, first.internal))
         for row in det:
             #print(row.percentile(stats[row.level_name()]), row.whom)
-            print('{:5.1f}% {}'.format(100*(row.score-first.score)/first.score, row.whom))
+            print('{:5.1f}% {:5} {}'.format(100*(row.score-first.score)/first.score, row.score, row.whom))
 
         print()
 
