@@ -1,0 +1,13 @@
+   cd 'SteamLibrary/steamapps/common/Poly Bridge'
+   echo 367450 > steam_appid.txt
+
+   gdb -iex 'handle SIGPWR nostop noprint' -iex 'handle SIGXCPU nostop noprint' --args ./polybridge.x86_64
+
+   break ISteamUserStats_FindOrCreateLeaderboard
+   commands
+   x/s $rcx
+   cont
+   end
+
+   r
+
