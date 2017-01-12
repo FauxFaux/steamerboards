@@ -65,8 +65,9 @@ def main(input_file):
 #    json.dump(by_level(), sys.stdout)
     print('Leaders:')
     winners = sorted(collections.Counter(x[0].whom for x in read.values()).items(), key=lambda x: -x[1])
+    complete = collections.Counter(y.whom for x in read.values() for y in x)
     for winner in winners:
-        print('{:5} {}'.format(winner[1], winner[0]))
+        print('{:5}/{:2} {}'.format(winner[1], complete[winner[0]], winner[0]))
 
     stats = dict(cached_stats())
 #    people = sorted({y.whom for x in read.values() for y in x})
