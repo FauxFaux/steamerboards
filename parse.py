@@ -64,14 +64,18 @@ def main(input_file):
 #    import sys
 #    json.dump(by_level(), sys.stdout)
     print('Leaders:')
+    people = {y.whom for x in read.values() for y in x}
     winners = sorted(collections.Counter(x[0].whom for x in read.values()).items(), key=lambda x: -x[1])
     complete = collections.Counter(y.whom for x in read.values() for y in x)
     for winner in winners:
-        print('{:5}/{:2} {}'.format(winner[1], complete[winner[0]], winner[0]))
+        name = winner[0]
+        print('{:5}/{:2} {}'.format(winner[1], complete[name], name))
+        people.remove(name)
+    for name in sorted(people):
+        print('{:5}/{:2} {}'.format(0, complete[name], name))
 
-    stats = dict(cached_stats())
-#    people = sorted({y.whom for x in read.values() for y in x})
-#    print(people)
+
+#    stats = dict(cached_stats())
 #    print(stats['Easy_001'])
 #    print(read['01-01'])
 
