@@ -2,6 +2,7 @@
 
 import collections
 import datetime
+import itertools
 import os
 import re
 
@@ -65,14 +66,15 @@ def main(input_file):
 #    json.dump(by_level(), sys.stdout)
     print('Leaders:')
     people = {y.whom for x in read.values() for y in x}
-    winners = sorted(collections.Counter(x[0].whom for x in read.values()).items(), key=lambda x: -x[1])
     complete = collections.Counter(y.whom for x in read.values() for y in x)
+    winners = sorted(dict(itertools.chain(
+            zip(people, itertools.repeat(0)),
+            collections.Counter(x[0].whom for x in read.values()).items()
+            )).items(), key=lambda x: -(7*15*x[1] + complete[x[0]]))
+
     for winner in winners:
         name = winner[0]
         print('{:5}/{:2} {}'.format(winner[1], complete[name], name))
-        people.remove(name)
-    for name in sorted(people):
-        print('{:5}/{:2} {}'.format(0, complete[name], name))
 
 
 #    stats = dict(cached_stats())
