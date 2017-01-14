@@ -8,8 +8,8 @@ DEST_HOST=blind:/srv/b.goeswhere.com/
 steamerboards: main.o boards.o
 	$(CXX) -o $@ main.o boards.o $(LDFLAGS)
 
-run:
-	env LD_LIBRARY_PATH=$(SDK)/redistributable_bin/linux64 ./steamerboards | sponge polybridge-scores.lst
+run: steamerboards
+	env LD_LIBRARY_PATH=$(SDK)/redistributable_bin/linux64 ./steamerboards > polybridge-scores.lst
 	python3 parse.py polybridge-scores.lst > polybridge-table.txt
 	scp polybridge-table.txt polybridge-scores.lst $(DEST_HOST)
 

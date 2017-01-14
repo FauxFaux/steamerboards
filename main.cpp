@@ -51,9 +51,14 @@ struct Ret {
 };
 
 int main(int argc, char *argv[]) {
-    if (!SteamAPI_Init()) {
+    if (!SteamAPI_Init() || !SteamAPI_IsSteamRunning()) {
         printf("api failed\n");
         return 1;
+    }
+
+    if (!SteamUser() || !SteamUser()->BLoggedOn()) {
+        printf("couldn't identify user; are you logged on?\n");
+        return 2;
     }
 
     typedef CCallResult<Ret, LeaderboardFindResult_t> find_t;
