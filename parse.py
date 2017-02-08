@@ -31,11 +31,13 @@ def parse(input_file):
             ma = pat.search(line)
             if not ma:
                 continue
-            yield Row(int(ma.group(1)),
+            r = Row(int(ma.group(1)),
                     int(ma.group(2)),
                     ma.group(3),
                     int(ma.group(4)),
                     ma.group(5))
+            if r.score <= 9e6:
+                yield r
 
 def by_level(input_file):
     ret = collections.defaultdict(list)
